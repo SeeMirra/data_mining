@@ -74,7 +74,7 @@ def process_package(package_path):
           continue
         item_report = json.loads(item_json)
         package_lib.append(item_report)
-  command("rm -f "+package_path)      
+        
   return package_lib
 
 
