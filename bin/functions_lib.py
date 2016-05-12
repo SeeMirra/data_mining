@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from datetime import datetime,  timedelta
-import sys, ihooks
+import os, sys, ihooks
 
 def format_date_pack():
     lastHourDateTime = datetime.today() - timedelta(hours = 1)
@@ -14,3 +14,9 @@ def import_from(name):
         raise ImportError, name
     m = loader.load_module(name, m)
     return m
+
+def command(command_string):
+    stdout = os.popen (command_string)
+    result = stdout.read()
+    return result
+
