@@ -8,6 +8,7 @@ import tarfile
 from functions_lib import * 
 from virustotal_data_mapping import * 
 from virustotal_mapping_malwarename import * 
+sys.path.append("../src/")
 from config_file import * 
 
 mapping = virustotal_mapping_name()
@@ -73,6 +74,7 @@ def process_package(package_path):
           continue
         item_report = json.loads(item_json)
         package_lib.append(item_report)
+  command("rm -f "+package_path)      
   return package_lib
 
 
