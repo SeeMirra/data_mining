@@ -294,6 +294,7 @@ def get_short_url(url):
         $                                    # anchor to end of string
         """, re.MULTILINE | re.VERBOSE)
     result = ""
+    format_lst = ["exe", "php", "html", "gif"]
     m_uri = re_3986_enhanced.match(url)
     if m_uri and m_uri.group("authority"):
         auth = m_uri.group("authority")
@@ -304,9 +305,14 @@ def get_short_url(url):
         count = 1
         url_path = ""
         if path_length> 1:
-           if re.search(path[1], ".exe"):
+           object_path1 = path[1].split(".")
+           flag = 0
+           for i in object_path1:
+             if i in format_lst:
+               flag = 1
+            if flag ==1:
               url_path = path[0]
-           else:
+            else:
               url_path = path[0]+"/"+path[1]
 
         scheme = m_uri.group("scheme")
