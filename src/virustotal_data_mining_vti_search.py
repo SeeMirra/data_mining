@@ -23,13 +23,13 @@ for search_tbl in search_lst:
                 if len(report) == 0:
                    continue
                 positives = report.get("positives")
-                if positives > 6:
+                if positives >= 5:
                    md5 = report.get("md5")
                    for key in report :
                       if key == "scans":
                          scan_report = report.get(key)
                          av_score = analyzer.get_av_engine_score_vti_search_report(scan_report)
-                         if (av_score >=6  and av_score <10):
+                         if (av_score >=5  and av_score <10):
                              analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
                          elif (av_score >=10):
                              analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
