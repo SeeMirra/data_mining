@@ -16,5 +16,15 @@ bin_dir = "/work/data_mining_isoi/bin"
 
 #specify the criteria that you would like to use in VTI search
 search_lst = [{"type": "executable", "positives": "7"+"+", "size":"90kb+"}, 
-              {"type": "document", "positives": "7"+"+","size":"90kb+"}]
+              {"type": "document", "positives": "7"+"+","size":"90kb+"}
+              {"behaviour":"explorer.exe", "positives": "7"+"+"},
+              {"tag": "trusted", "positives": "7+"},
+              {"sources":"2000+" ,"symantec":"infected"},
+              {"tag": "NSRL", "positives": "5+"},
+              {"tag":"software-collection", "symantec":"infected", "positives": "5+"},
+              {"tag": "worm", "positives": "5+"},
+              {"tag": "trojan", "positives": "5+"},
+              {"tag": "shellcode", "positives": "5+"},
+              {"tag": "exploit-kit", "positives": "5+"}
+              ]
 
