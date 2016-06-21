@@ -1,0 +1,54 @@
+#!/usr/local/bin/python
+
+import sys, time
+
+from config_file import *
+sys.path.append(bin_dir)
+from functions_lib  import *
+
+analyzer = import_from("virustotal_data_mining_analyzer")
+
+
+package_path = analyzer.get_vt_url_feed()
+url_report = analyzer.process_package(package_path)
+for param in url_report:
+    url_positives = param.get("positives")
+    url = param.get("url")
+    if url_positives >= 5:
+           data_report = {}
+           info = param.get("additional_info")
+           url_threat_score = analyzer.get_url_threat_score(info)
+           engines_lst = param.get("scans")
+           engines = analyzer.get_detected_engine_list(engines_lst)
+           engine_score = analyzer.get_engine_score(engines)
+           if engine_score > 6:
+              if url_threat_score >5:
+                 short_url = analyzer.get_short_url(url)
+                 url_lst = analyzer.get_url_from_data_file(url_data)
+                 if short_url in url_lst:
+                    continue
+                 analyzer.collect_url_in_csv_format(url_data, short_url, url)
+                 search_tbl = {"itw": url, "positives": "5+"}
+                 page_counter = 0
+                 next_page = None
+                 while page_counter <= 4:
+                       page_counter+=1
+                       next_page, hashes = analyzer.get_matching_files(search_tbl, page=next_page)
+                       for md5 in hashes:
+                          report = analyzer.get_report_all_info(md5)
+                          if len(report) == 0:
+                              continue
+                          positives = report.get("positives")
+                          if positives >= 5:
+                             md5 = report.get("md5")
+                             for key in report :
+                                if key == "scans":
+                                   scan_report = report.get(key)
+                                   av_score = analyzer.get_av_engine_score_vti_search_report(scan_report)
+                                   if (av_score >=5  and av_score <10):
+                                      analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
+                                   elif (av_score >=10):
+                                      analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
+
+                          else:
+                               print "Positives AV engines on hash "+md5+" is: "+str(positives)
