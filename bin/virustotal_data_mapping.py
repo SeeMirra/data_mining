@@ -33,7 +33,6 @@ categories_score = {"blogs" : 1,
                    "application and software download" : 1,
                    "personal network storage and backup" : 1, #store personal files on web servers for backup or exchange
                    "hacking" : 5,
-                   "hacking" : 5,
                    "elevated exposure" : 2,
                    "education" : 0,
                    "web hosting" : 0,
