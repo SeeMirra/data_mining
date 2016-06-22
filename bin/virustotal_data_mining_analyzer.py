@@ -118,7 +118,7 @@ def collect_data_in_csv_format(md5, file_path):
               print md5+" already exists in feeds."
               return
     with open(file_path, 'a') as csvfile:
-             fieldnames = ['md5', 'mwname', 'mwtype']
+             fieldnames = ['md5', 'mwname', 'mwtype', 'severity']
              writer = csv.DictWriter(csvfile, delimiter=',', lineterminator='\n', fieldnames=fieldnames)
              if not file_exists:
                 writer.writeheader()
