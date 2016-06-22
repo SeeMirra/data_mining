@@ -8,6 +8,7 @@ Mining VirusTotal for operational data and applying quality control on the obtai
 Tools:
 
 There are four scripts for mining data from virus total:
+
 1.	virustotal_data_mining_file.py: It mines data based on live File feed API.
 
 2.	virustotal_data_mining_vti_search.py: It mines data based on the applied vti search
