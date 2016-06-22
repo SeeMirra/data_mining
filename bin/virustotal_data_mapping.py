@@ -108,3 +108,15 @@ engine_score_mapping = {
          'nProtect'            : 1,
 }
 
+malware_type_score = {
+                      "WORM": 3,
+                      "VIRUS": 2,
+                      "TROJWARE":4,
+                      "EXPLOIT": 2,
+                      "ADWARE": 1,
+                      "BOT": 1,
+                      "RANSOMWARE": 5,
+                      "ROOTKIT": 4,
+                      "SPYWARE": 4
+}
+
