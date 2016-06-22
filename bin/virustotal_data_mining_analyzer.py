@@ -110,7 +110,7 @@ def collect_data_in_csv_format(md5, file_path):
     mal_type, malware_name = mapping.create_malware_name(report, file_type)
     if (malware_name == None or malware_name == ""):
        return
-
+    severity = malware_type_score.get(mal_type)
     file_exists = os.path.isfile(file_path)
     if  file_exists:
            boolian = bool_exist_in_data(md5, file_path)
@@ -122,7 +122,7 @@ def collect_data_in_csv_format(md5, file_path):
              writer = csv.DictWriter(csvfile, delimiter=',', lineterminator='\n', fieldnames=fieldnames)
              if not file_exists:
                 writer.writeheader()
-             writer.writerow({'md5': md5, 'mwname': malware_name, "mwtype":mal_type})
+             writer.writerow({'md5': md5, 'mwname': malware_name, "mwtype":mal_type, "severity": severity})
 
 
 def bool_exist_in_data(md5, file_path):
