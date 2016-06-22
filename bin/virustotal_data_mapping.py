@@ -109,14 +109,17 @@ engine_score_mapping = {
 }
 
 malware_type_score = {
-                      "WORM": 3,
-                      "VIRUS": 2,
-                      "TROJWARE":4,
-                      "EXPLOIT": 2,
-                      "ADWARE": 1,
-                      "BOT": 1,
-                      "RANSOMWARE": 5,
-                      "ROOTKIT": 4,
-                      "SPYWARE": 4
+        'ADWARE':    1,
+        'TROJWARE':  3,
+        'WORM':      3,
+        'VIRUS':     3,
+        'ROOTKIT':   4,
+        'SPYWARE':   2,
+        'EXPLOIT':   3,
+        "RANSOMWARE": 5,
+        'RISKWARE':  2,
+        'HOAX':      1,
+        'POS':       4,
+        'MALWARE':   2,
 }
 
