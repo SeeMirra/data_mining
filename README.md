@@ -27,12 +27,11 @@ The following scripts are included in the package, please check regularly for up
 
 3.	virustotal_data_mining_url.py: It mines data based on live URL feed API on minute basis.
 
-4.      virustotal_data_mining_url_itw.py: It mines URLs and hashes based on live URL API and VTI search on minute basis.
+4.  virustotal_data_mining_url_itw.py: It mines URLs and hashes based on live URL API and VTI search on minute basis.
 
-5.      virustotal_data_mining_download_files.py: Downloads the most malicious hashes obtained by the first and second script. Run it with delay from the first two scripts.
+5.  virustotal_data_mining_download_files.py: Downloads the most malicious hashes obtained by the first and second script. Run it with delay from the first two scripts.
 
-6.      virustotal_data_mining_file_similar_to.py: Get the list of high scored mined hashes and find similar to hashes to the mined one. Run the script with delay from the rest to get the results.
-
+6.  virustotal_data_mining_file_similar_to.py: Get the list of high scored mined hashes and find similar to hashes to the mined one. Run the script with delay from the rest to get the results.
 
 
 How to run the tools
@@ -51,9 +50,9 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 
 6.	search_lst: specify the criteria that you would like to use in VTI search.
 
-7.      download_files_lst: list of hashes that you would like to download files from mined hashes. 
+7.  download_files_lst: list of hashes that you would like to download files from mined hashes. 
 
-8.      data_dir: enter the directory that you would like to download the files from VT based on the mined data.
+8.  data_dir: enter the directory that you would like to download the files from VT based on the mined data.
 
 
 Needed python modules
