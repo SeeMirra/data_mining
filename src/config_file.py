@@ -12,7 +12,7 @@ high_scored_hashes = "/tmp/high_scored_hashes.csv"
 url_data = "/tmp/url_data.csv"
 
 #place the directory of bin folder here
-#bin_dir = <"/data_mining-master/bin">
+bin_dir = "../bin"
 
 #specify the criteria that you would like to use in VTI search
 search_lst = [{"type": "executable", "positives": "7"+"+", "size":"90kb+"}, 
@@ -28,3 +28,8 @@ search_lst = [{"type": "executable", "positives": "7"+"+", "size":"90kb+"},
               {"tag": "exploit-kit", "positives": "5+"}
               ]
 
+#indicate directory of the obtained hashes that you would like to download files
+download_files_lst = [high_scored_hashes, mid_scored_hashes]
+
+#indicate directory to download files
+data_dir = "/tmp/samples/"
