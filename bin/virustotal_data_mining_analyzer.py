@@ -2,7 +2,7 @@
 # coding: utf-8
 import requests, json
 import csv
-import re, os
+import re, os, shutil
 import urllib, urllib2
 import tarfile
 from functions_lib import * 
@@ -15,7 +15,7 @@ mapping = virustotal_mapping_name()
 
 
 
-score_threshold = 12
+score_threshold = 6
 INTELLIGENCE_SEARCH_URL = ('https://www.virustotal.com/intelligence/search/'
                            'programmatic/')
 
@@ -192,6 +192,13 @@ def get_report_all_info(md5):
     return report_dict
 
 
+def get_report(md5):
+    import requests
+    params = {'resource': md5, 'apikey': vt_key}
+    response = requests.get('https://www.virustotal.com/vtapi/v2/file/report', params=params)
+    response_json = response.json()
+    return response_json
+
 def get_sources(scans):
     engine_lst = {}
     for vt_engine in scans:
@@ -256,6 +263,8 @@ def get_search_in_string(search):
           search_string+=key+':"'+search.get(key)+'" '
        elif key == "behaviour":
           search_string+=key+':"'+search.get(key)+'" '
+       else:
+          search_string+=key+':'+search.get(key)+' '
     return search_string
 
 def get_detected_engine_list(engines):
@@ -390,11 +399,61 @@ def get_domain(url):
     return result     
 
 
+def get_md5_from_high_scored_data(file_name):
+    exist = boolian_file_exist(file_name)
+    if not exist:
+       return False
+    md5_lst = []
+    fmap = open(file_name, 'r')
+    reader = csv.DictReader(fmap)
+    for item in reader:
+        for key in item:
+           if key == "md5":
+              md5 = item.get(key)
+              md5_lst.append(md5)
+    return md5_lst
+
+
+def download_file_vt(md5, data_dir):
+     try:
+        param = {'hash':md5,'apikey':vt_key}
+        url = "https://www.virustotal.com/vtapi/v2/file/download"
+        data = urllib.urlencode(param)
+        req = urllib2.Request(url,data)
+        result = urllib2.urlopen(req)
+        downloadedfile = result.read()
+        file_name = data_dir + md5
+        if not os.path.exists(data_dir):
+           os.mkdir(data_dir)
+        if len(downloadedfile) > 0:
+          fo = open(file_name,"w")
+          fo.write(downloadedfile)
+          fo.close()
+          print "\n\tMalware Downloaded to File -- " + file_name
+          return downloadedfile
+        else:
+          print md5 + " -- Not Found for Download"
+          downloadedfile = "none"
+          return downloadedfile
+     except Exception:
+        print md5 + "--- File Not Available ---"
+
+
+def get_url_from_feed(file_name):
+    url_lst = []
+    exist = boolian_file_exist(file_name)
+    if not exist:
+       return False
+    fmap = open(file_name, 'r')
+    reader = csv.DictReader(fmap)
+    for item in reader:
+       url = item.get("indicator")
+       if url in url_lst:
+             continue
+       url_lst.append(url)
+    fmap.close()
+    return url_lst
+
 if __name__ == '__main__':
-   md5 = "928e0d04292405ef823337e8612a1ce2"
-   bb = collect_data_in_csv_format(md5, "/tmp/1.csv")
-   print bb
-
-
-
+   print "hello World!"
 
