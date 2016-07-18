@@ -29,10 +29,13 @@ for search_tbl in search_lst:
                       if key == "scans":
                          scan_report = report.get(key)
                          av_score = analyzer.get_av_engine_score_vti_search_report(scan_report)
-                         if (av_score >=5  and av_score <10):
-                             analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
+                         mal_tbl  = analyzer.get_malware_tbl(md5)
+                         mal_sev = mal_tbl.get("severity")
+                         score = av_score+mal_sev
+                         if (score >=6  and score <10):
+                             analyzer.collect_data_in_csv_format(md5, mid_scored_hashes, mal_tbl)
                          elif (av_score >=10):
-                             analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
+                             analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
   
                 else:
                     print "Positives AV engines on hash "+md5+" is: "+str(positives)

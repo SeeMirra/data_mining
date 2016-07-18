@@ -32,9 +32,13 @@ while True:
                                 if key == "scans":
                                    scan_report = report.get(key)
                                    av_score = analyzer.get_av_engine_score_vti_search_report(scan_report)
-                                   if (av_score >=5  and av_score <10):
+
+                                   mal_tbl  = analyzer.get_malware_tbl(md5)
+                                   mal_sev = mal_tbl.get("severity")
+                                   score = av_score+mal_sev
+                                   if (score >=6  and score <11):
                                       analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
-                                   elif (av_score >=10):
+                                   elif (av_score >=11):
                                       analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
 
                           else:

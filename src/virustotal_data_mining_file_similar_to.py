@@ -34,10 +34,14 @@ for hash_name in md5_lst:
             if positives > 6:
                  scan_report = report.get("scans")
                  av_score = analyzer.get_av_engine_score(scan_report)
-                 if (av_score >=6  and av_score <10):
-                    analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
-                 elif (av_score >=10):
-                    analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
+                 mal_tbl  = analyzer.get_malware_tbl(md5)
+                 mal_sev = mal_tbl.get("severity")
+                 score = av_score+mal_sev
+
+                 if (score >=8  and score <12):
+                    analyzer.collect_data_in_csv_format(md5, mid_scored_hashes, mal_tbl)
+                 elif (score >=12):
+                    analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
                  else:
                     print "Total score of Antivirus Engines is "+str(av_score)+" and doesn't meet the minumim requirement!"
 
