@@ -13,12 +13,6 @@ from config_file import *
 
 mapping = virustotal_mapping_name()
 
-
-
-score_threshold = 6
-INTELLIGENCE_SEARCH_URL = ('https://www.virustotal.com/intelligence/search/'
-                           'programmatic/')
-
 def get_vt_file_feed():
     import requests
     date_pack = format_date_pack()
@@ -102,15 +96,22 @@ def get_av_engine_score_vti_search_report(scan_report):
     return av_score
 
 
-def collect_data_in_csv_format(md5, file_path):
-    '''write hashes with mid level of malicious in a csv file'''
+def get_malware_tbl(md5):
     report = get_report_all_info(md5)
-    sha256 = report.get("sha256")
     file_type = report.get("filetype")
     mal_type, malware_name = mapping.create_malware_name(report, file_type)
     if (malware_name == None or malware_name == ""):
        return
     severity = malware_type_score.get(mal_type)
+    mal_tbl = {'type': mal_type, "name": malware_name, "severity":severity}
+    return mal_tbl
+
+def collect_data_in_csv_format(md5, file_path, mal_tbl):
+    '''write hashes with mid level of malicious in a csv file'''
+    severity = mal_tbl.get("severity")
+    mal_type = mal_tbl.get("type")
+    malware_name = mal_tbl.get("name")
+
     file_exists = os.path.isfile(file_path)
     if  file_exists:
            boolian = bool_exist_in_data(md5, file_path)
@@ -216,6 +217,8 @@ def get_matching_files(search, page=None):
   response = None
   page = page or 'undefined'
   attempts = 0
+  INTELLIGENCE_SEARCH_URL = ('https://www.virustotal.com/intelligence/search/'
+                           'programmatic/')
   trid = search.get("type")
   search = get_search_in_string(search)
   parameters = {'query': search, 'apikey': vt_key, 'page': page, 'trid': trid}
