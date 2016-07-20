@@ -30,4 +30,7 @@ def boolian_file_exist(file_name):
        return True
     return False
 
-
+def get_yesterday():
+    i = datetime.now() - timedelta(hours=24)
+    date = ("%s-%02d-%02d" % (i.year, i.month, i.day))
+    return date
