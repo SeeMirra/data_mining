@@ -1,4 +1,4 @@
-# vt_data_mining
+# Zagros-mine
 Mining VirusTotal for operational data and applying quality control on the obtained results.
 
 The tool is designed to get the most recent malicious hashes and URLs with no false positive from VirusTotal and apply a quality control on the obtained data. All the data being submitted to VirusTotal are being analyzed in real time by the tool and only the ones passing the algorithm will be added to the database. 
