@@ -26,11 +26,12 @@ for hash_name in md5_lst:
             continue
          if next_page == None and page_counter>1:
             continue
-         for md5 in hashes:
-            report = analyzer.get_report(md5)
+         for element in hashes:
+            report = analyzer.get_report(element)
             if len(report) == 0:
                  continue
             positives = report.get("positives")
+            md5 = report.get("md5")
             if positives > 6:
                  scan_report = report.get("scans")
                  av_score = analyzer.get_av_engine_score(scan_report)

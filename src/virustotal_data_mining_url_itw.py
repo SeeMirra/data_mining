@@ -37,9 +37,9 @@ while True:
                                    mal_sev = mal_tbl.get("severity")
                                    score = av_score+mal_sev
                                    if (score >=6  and score <11):
-                                      analyzer.collect_data_in_csv_format(md5, mid_scored_hashes)
-                                   elif (av_score >=11):
-                                      analyzer.collect_data_in_csv_format(md5, high_scored_hashes)
+                                      analyzer.collect_data_in_csv_format(md5,mid_scored_hashes, mal_tbl)
+                                   elif (score >=11):
+                                      analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
 
                           else:
                                print "Positives AV engines on hash "+md5+" is: "+str(positives)
