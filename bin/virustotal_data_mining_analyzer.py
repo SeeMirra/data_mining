@@ -457,6 +457,21 @@ def get_url_from_feed(file_name):
     fmap.close()
     return url_lst
 
+
+def get_cluster_report(date):
+   params = {'apikey': vt_key, 'date': date}
+   response = requests.get('https://www.virustotal.com/vtapi/v2/file/clusters', params=params)
+   response_json = response.json()
+   return response_json
+
+
+def get_cluster_detail(cluster_id):
+    import requests
+    params = {'apikey': vt_key, 'query': 'cluster:"%s"' % cluster_id}
+    response = requests.get('https://www.virustotal.com/vtapi/v2/file/search', params=params)
+    json_response = response.json()
+    return json_response
+
 if __name__ == '__main__':
    print "hello World!"
 
