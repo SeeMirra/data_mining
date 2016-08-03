@@ -68,6 +68,7 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 12. localhost: Specify the IP address of mango server.
 
 13. port: Specify the port number of mangodb server
+
 Needed python modules
 
 •	urllib2, urllib
