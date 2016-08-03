@@ -1,7 +1,7 @@
 # Zagros-mine
 Mining VirusTotal for operational data and applying quality control on the obtained results.
 
-The tool is designed to get the most recent malicious hashes and URLs with no false positive from VirusTotal and apply a quality control on the obtained data. All the data being submitted to VirusTotal are being analyzed in real time by the tool and only the ones passing the algorithm will be added to the database. 
+The tool is designed to get the most recent malicious hashes and URLs with minimized false positive from VirusTotal and apply a quality control on the obtained data. All the data being submitted to VirusTotal are being analyzed in real time by the tool and only the ones passing the algorithm will be added to the database. 
 
 
 Following are the proposed domains for using the tool: 
@@ -33,6 +33,11 @@ The following scripts are included in the package, please check regularly for up
 
 6.  virustotal_data_mining_file_similar_to.py: Get the list of high scored mined hashes and find similar to hashes to the mined one. Run the script with delay from the rest to get the results.
 
+7. virustotal_aging_mined_hashes.py: Evaluate the hashes stored in database and remove the hash if it's low scored. Run it only if you configured mangoDB.
+
+8. virustotal_aging_mined_urls.py: Evaluate the URLs stored in database and remove the low scored URLs.Run it only if you configured mangoDB.
+
+9. virustotal_data_mining_download_files.py: Download the high scored files and extract the embedded files in it.
 
 How to run the tools
 
@@ -50,11 +55,19 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 
 6.	search_lst: specify the criteria that you would like to use in VTI search.
 
-7.  download_files_lst: list of hashes that you would like to download files from mined hashes. 
+7.   download_files_lst: list of hashes that you would like to download files from mined hashes. 
 
-8.  data_dir: enter the directory that you would like to download the files from VT based on the mined data.
+8.   data_dir: enter the directory that you would like to download the files from VT based on the mined data.
 
+9.   extraction: assign it to 1 if you would like to extract embedded objects from downloaded files. Otherwise, assign it to 0.
 
+10.  extracted_data_dir: Specify the directory to extract embedded object of downloaded files in it.
+
+11.  mangodb: If you would like to save the obtained data in mangodb database, set it to 1.
+
+12. localhost: Specify the IP address of mango server.
+
+13. port: Specify the port number of mangodb server
 Needed python modules
 
 •	urllib2, urllib
