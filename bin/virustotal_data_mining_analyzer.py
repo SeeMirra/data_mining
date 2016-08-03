@@ -472,6 +472,15 @@ def get_cluster_detail(cluster_id):
     json_response = response.json()
     return json_response
 
+    
+def get_url_report(url):
+    import requests
+    params = {'apikey': vt_key, 'resource':url}
+    response = requests.post('https://www.virustotal.com/vtapi/v2/url/report', params=params)
+    json_response = response.json()
+    return json_response
+
+
 if __name__ == '__main__':
    print "hello World!"
 

@@ -34,3 +34,17 @@ def get_yesterday():
     i = datetime.now() - timedelta(hours=24)
     date = ("%s-%02d-%02d" % (i.year, i.month, i.day))
     return date
+
+def run_foremost(input_dir, output_dir, file_name):
+    if not  os.path.exists(output_dir):
+      os.mkdir(output_dir)
+    output_dir = output_dir+"/"+file_name
+    if not  os.path.exists(output_dir):
+      os.mkdir(output_dir)
+    command("foremost -i "+input_dir+" -o "+output_dir)
+    return output_dir
+
+def get_iso_date_in_microseconds():
+    i = datetime.now()
+    date = ("%04d-%02d-%02dT%02d:%02d:%02d.%d" % (i.year, i.month, i.day, i.hour, i.minute, i.second, i.microsecond) )
+    return  date
