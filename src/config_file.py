@@ -33,3 +33,21 @@ download_files_lst = [high_scored_hashes, mid_scored_hashes]
 
 #indicate directory to download files
 data_dir = "/tmp/samples/"
+
+#enable extraction by assign 1 to it.
+extraction = 1
+
+#indicate directory to save extracted data of each hash
+extracted_data_dir = "/tmp/extract_dir"
+
+
+# MangoDB Configuration
+# Note: Please consider using either mangoDB or csv file storage
+#enable mangodb, if you would like data get submitted to mangodb, set mangodb = 1 to enable
+mangodb = 0
+
+#Specify the mangoDB server
+localhost = "IP Address goes here"
+
+#Specify the port number to connect to mangoDB
+port = 27018

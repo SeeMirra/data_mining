@@ -8,6 +8,7 @@ from functions_lib  import *
 
 
 analyzer = import_from("virustotal_data_mining_analyzer")
+database = import_from("functions_database")
 
 date = get_yesterday()
 cluster_report = analyzer.get_cluster_report(date)
@@ -30,6 +31,7 @@ for info in cluster_report:
                           positives = report.get("positives")
                           if positives >= 6:
                              md5 = report.get("md5")
+                             sha256 = report.get("sha256")
                              for key in report :
                                 if key == "scans":
                                    scan_report = report.get(key)
@@ -40,9 +42,15 @@ for info in cluster_report:
                                    score = av_score+mal_sev
                                    
                                    if (score >=8  and score<12):
-                                      analyzer.collect_data_in_csv_format(md5, mid_scored_hashes, mal_tbl)
+                                      if mangodb:
+                                         database.insert_data(md5, mal_tbl, "mid_scored", sha256)
+                                      else:
+                                         analyzer.collect_data_in_csv_format(md5, mid_scored_hashes, mal_tbl)
                                    elif (score >=12):
-                                      analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
+                                      if mangodb:
+                                         database.insert_data(md5, mal_tbl, "high_scored", sha256)
+                                      else:
+                                         analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
 
                           else:
                                print "Positives AV engines on hash "+md5+" is: "+str(positives)

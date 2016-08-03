@@ -7,7 +7,7 @@ sys.path.append(bin_dir)
 from functions_lib  import *
 
 analyzer = import_from("virustotal_data_mining_analyzer")
-
+database = import_from("functions_database")
 
 while True:
    package_path = analyzer.get_vt_url_feed()
@@ -29,5 +29,7 @@ while True:
                  if short_url in url_lst:
                     continue
                  analyzer.collect_url_in_csv_format(url_data, short_url, url) 
+                 if mangodb:
+                    database.insert_url_data(url)
    remove_file(package_path)
    time.sleep(40)

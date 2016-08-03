@@ -7,10 +7,17 @@ sys.path.append(bin_dir)
 from functions_lib  import *
 
 analyzer = import_from("virustotal_data_mining_analyzer")
+database = import_from("functions_database")
 
 
 while True:
-   url_lst = analyzer.get_url_from_feed(url_data)
+   if mangodb:
+      url_lst = database.get_url_lst()
+   else:
+      url_lst = analyzer.get_url_from_feed(url_data)
+      if url_lst == False:
+         print "Please execute virustotal_data_mining_url.py to get list of URLs and try again!"
+         sys.exit()
    length = len(url_lst)-10
    url_lst = url_lst[length:]
 
@@ -28,6 +35,7 @@ while True:
                           positives = report.get("positives")
                           if positives >= 5:
                              md5 = report.get("md5")
+                             sha256 = report.get("sha256")
                              for key in report :
                                 if key == "scans":
                                    scan_report = report.get(key)
@@ -37,9 +45,15 @@ while True:
                                    mal_sev = mal_tbl.get("severity")
                                    score = av_score+mal_sev
                                    if (score >=6  and score <11):
-                                      analyzer.collect_data_in_csv_format(md5,mid_scored_hashes, mal_tbl)
+                                      if mangodb:
+                                          database.insert_data(md5, mal_tbl, "mid_scored", sha256)
+                                      else:
+                                         analyzer.collect_data_in_csv_format(md5,mid_scored_hashes, mal_tbl)
                                    elif (score >=11):
-                                      analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
+                                      if mangodb:
+                                          database.insert_data(md5, mal_tbl, "high_scored", sha256)
+                                      else:
+                                         analyzer.collect_data_in_csv_format(md5, high_scored_hashes, mal_tbl)
 
                           else:
                                print "Positives AV engines on hash "+md5+" is: "+str(positives)
