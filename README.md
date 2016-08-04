@@ -69,6 +69,10 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 
 13. port: Specify the port number of mangodb server
 
+
+Python: 2.7.6 is needed.
+
+
 Needed python modules
 
 •	urllib2, urllib
@@ -76,4 +80,7 @@ Needed python modules
 •	json
 
 •	requests
+
+•	Pymongo
+
 
