@@ -63,11 +63,11 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 
 10.  extracted_data_dir: Specify the directory to extract embedded object of downloaded files in it.
 
-11.  mangodb: If you would like to save the obtained data in mangodb database, set it to 1.
+11.  mangodb: If you would like to save the obtained data in mangoDB database, set it to 1.
 
-12. localhost: Specify the IP address of mango server.
+12. localhost: Specify the IP address of mangoDB server.
 
-13. port: Specify the port number of mangodb server
+13. port: Specify the port number of mangoDB server
 
 
 Python: 2.7.6 is needed.
