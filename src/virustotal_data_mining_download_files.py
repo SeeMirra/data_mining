@@ -16,7 +16,9 @@ for hash_file_path in download_files_lst:
         print hash_file_path+" doesn't exist. Please schedule running this script after virustotal_data_mining_file.py"
    else:
        if mangodb:
-          md5_lst = database.
+          md5_lst = database.get_md5_lst()
+      else:
+          md5_lst = analyzer.get_md5_from_high_scored_data(hash_file_path)
        md5_lst = analyzer.get_md5_from_high_scored_data(hash_file_path)
        if md5_lst == False:
           print "no data is available, schedule to run the script later"
