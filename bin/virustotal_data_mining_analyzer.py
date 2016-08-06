@@ -1,6 +1,8 @@
 #!/usr/local/bin/python
 # coding: utf-8
 import requests, json
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
 import csv
 import re, os, shutil
 import urllib, urllib2
