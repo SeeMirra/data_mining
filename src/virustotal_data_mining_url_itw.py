@@ -33,8 +33,8 @@ while True:
                           if len(report) == 0:
                               continue
                           positives = report.get("positives")
+                          md5 = report.get("md5")
                           if positives >= 5:
-                             md5 = report.get("md5")
                              sha256 = report.get("sha256")
                              for key in report :
                                 if key == "scans":
