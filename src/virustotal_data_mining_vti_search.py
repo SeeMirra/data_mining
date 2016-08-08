@@ -16,6 +16,9 @@ for search_tbl in search_lst:
       while count < 4:
             count +=1      
             next_page, hashes = analyzer.get_matching_files(search_tbl, page=next_page)
+            if hashes == None:
+               print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+               os._exit(0)
             for md5 in hashes:
                 report = analyzer.get_report_all_info(md5)
                 if len(report) == 0:
