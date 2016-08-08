@@ -3,7 +3,7 @@
 import requests, json
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
-import csv
+import csv, time
 import re, os, shutil
 import urllib, urllib2
 import tarfile
@@ -21,6 +21,10 @@ def get_vt_file_feed():
     compressed_report_path = '/tmp/file-'+date_pack+'.tar.bz2'
     params = {'apikey': vt_key, 'package': date_pack}
     response = requests.get('https://www.virustotal.com/vtapi/v2/file/feed', params=params)
+    status = response.status_code
+    if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0) 
     package_file = open(compressed_report_path, 'wb')
     package_file.write(response.content)
     package_file.close()
@@ -33,6 +37,10 @@ def get_vt_url_feed():
    compressed_report_path = '/tmp/url-'+date_pack+'.tar.bz2'
    params = {'apikey': vt_key, 'package': date_pack}
    response = requests.get('https://www.virustotal.com/vtapi/v2/url/feed', params=params)
+   status = response.status_code
+   if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
    package_file = open(compressed_report_path, 'wb')
    package_file.write(response.content)
    package_file.close()
@@ -149,6 +157,10 @@ def get_report_all_info(md5):
     report_dict = {}
     params = {'resource': md5, 'apikey': vt_key, 'allinfo': 1}
     response = requests.get('https://www.virustotal.com/vtapi/v2/file/report', params=params)
+    status = response.status_code
+    if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
     response_json = response.json()
     for key in response_json:
         if key == "positives":
@@ -199,6 +211,10 @@ def get_report(md5):
     import requests
     params = {'resource': md5, 'apikey': vt_key}
     response = requests.get('https://www.virustotal.com/vtapi/v2/file/report', params=params)
+    status = response.status_code
+    if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
     response_json = response.json()
     return response_json
 
@@ -463,6 +479,10 @@ def get_url_from_feed(file_name):
 def get_cluster_report(date):
    params = {'apikey': vt_key, 'date': date}
    response = requests.get('https://www.virustotal.com/vtapi/v2/file/clusters', params=params)
+   status = response.status_code
+   if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
    response_json = response.json()
    return response_json
 
@@ -471,6 +491,10 @@ def get_cluster_detail(cluster_id):
     import requests
     params = {'apikey': vt_key, 'query': 'cluster:"%s"' % cluster_id}
     response = requests.get('https://www.virustotal.com/vtapi/v2/file/search', params=params)
+    status = response.status_code
+    if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
     json_response = response.json()
     return json_response
 
@@ -479,6 +503,10 @@ def get_url_report(url):
     import requests
     params = {'apikey': vt_key, 'resource':url}
     response = requests.post('https://www.virustotal.com/vtapi/v2/url/report', params=params)
+    status = response.status_code
+    if status == 403:
+        print "You do not have enough privilledge to run the API, please contact VirusTotal for a valid Key."
+        os._exit(0)
     json_response = response.json()
     return json_response
 
