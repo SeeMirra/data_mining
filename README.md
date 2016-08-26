@@ -16,6 +16,8 @@ Following are the proposed domains for using the tool:
 
 -> Performance testing tool.
 
+-> Please note that this tool is not an AV engine.
+
 
 Scripts:
 
@@ -67,7 +69,10 @@ Open confilg_file.py and add the following data in it to be able to run the scri
 
 12. localhost: Specify the IP address of mangoDB server.
 
-13. port: Specify the port number of mangoDB server
+13. port: Specify the port number of mangoDB server.
+
+14. You would need to give score of 0-5 to AV engines detecting the data malicious. Please modify ../bin/virustotal_data_mapping.py
+ and give the appropriate score to engine_score_mapping. 
 
 
 Python: 2.7.6 is needed.
