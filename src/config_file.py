@@ -1,58 +1,53 @@
-#!/usr/bin/python
+#!/usr/local/bin/python
 
-__description__ = "Config File"
-__author__="Gita Ziabari"
-__version__="0.0.1"
-__date__="07/22/2017"
+#vt_key = <ENTER YOUR Virus Total Key here!>
 
-"""
-    This file is part of Yalda.
+#Directory to place the obtained medium scored hashes. The file needs to be in csv format
+mid_scored_hashes = "/tmp/mid_scored_hashes.csv"
 
-    Yalda is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+#Directory to place the obtained high scored hashes. The file needs to be in csv format
+high_scored_hashes = "/tmp/high_scored_hashes.csv"
 
-    Yalda is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+#directory to place the obtained urls. The file needs to be in csv format.
+url_data = "/tmp/url_data.csv"
 
-    You should have received a copy of the GNU General Public License
-    along with Yalda.  If not, see <http://www.gnu.org/licenses/>.
-"""
+#place the directory of bin folder here
+bin_dir = "../bin"
 
+#specify the criteria that you would like to use in VTI search
+search_lst = [{"type": "executable", "positives": "7"+"+", "size":"90kb+"}, 
+              {"type": "document", "positives": "7"+"+","size":"90kb+"},
+              {"behaviour":"explorer.exe", "positives": "7"+"+"},
+              {"tag": "trusted", "positives": "7+"},
+              {"sources":"2000+" ,"symantec":"infected"},
+              {"tag": "NSRL", "positives": "5+"},
+              {"tag":"software-collection", "symantec":"infected", "positives": "5+"},
+              {"tag": "worm", "positives": "5+"},
+              {"tag": "trojan", "positives": "5+"},
+              {"tag": "shellcode", "positives": "5+"},
+              {"tag": "exploit-kit", "positives": "5+"}
+              ]
 
-'''place the directory of bin folder here'''
-bin_dir = "<bin dir >"
+#indicate directory of the obtained hashes that you would like to download files
+download_files_lst = [high_scored_hashes, mid_scored_hashes]
 
-'''indicate directory of files to be parsed---place all of your files in this directory for analysis'''
-data_dir = "<Files directory >"
+#indicate directory to download files
+data_dir = "/tmp/samples/"
 
+#enable extraction by assign 1 to it.
+extraction = 1
 
-'''Yara Analysis'''
-yara_check = 1   #enabled = 1; disabled = 0
-'''Place yara rules in this directory'''
-yara_rules_dir = "<yara rules directory>"
-
-'''VT Analysis'''
-'''Enable vt_key if you would like to get extra information frm Virus Total '''
-vt_check = 0    #enabled = 1; disabled = 0
-'''add your virus total key'''
-vt_key = 'vt key'
-
-#indicate directory to download mail attachments
-mime_attachment_directory = "<directory for placing extracted files in it>"
-
-#clean up mail directory prior executing the script
-clean_up_mime_directory = 1   #anabled = 1, disabled = 0 
+#indicate directory to save extracted data of each hash
+extracted_data_dir = "/tmp/extract_dir"
 
 
-#specify mongodb credentials here
-localhost = "IP address of mongodb"
-port = 22     #port number for connecting to mongodb
-db_name = 'amfm_db'
-collection_name = 'yalda_collection'
+# MangoDB Configuration
+# Note: Please consider using either mangoDB or csv file storage
+#enable mangodb, if you would like data get submitted to mangodb, set mangodb = 1 to enable
+mangodb = 0
 
+#Specify the mangoDB server
+localhost = "IP Address goes here"
 
-
+#Specify the port number to connect to mangoDB
+port = 27018
